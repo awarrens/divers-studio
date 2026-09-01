@@ -54,8 +54,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* --- Pills ---------------------------------------------------------------
-   The one recurring component. A hairline capsule, sometimes wrapping a
-   filled circular arrow. Radius 90 from the source. */
+   The one recurring component. A hairline capsule; two of them also carry a
+   filled circular control. In the source that circle is a real button widget,
+   so it is a real button here: a decorative circle wearing an arrow promises
+   an action it cannot perform. */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -70,25 +72,55 @@ a { color: inherit; text-decoration: none; }
 }
 a.pill:hover, a.pill:focus-visible { background: var(--c-fg); color: var(--c-bg); }
 
-/* Pill that carries a filled circular arrow, as the tagline and section
-   markers do. The circle is flush to the capsule's inner edge. */
-.pill--arrow { padding: 0; padding-right: 1.4em; gap: 0; }
+/* Capsules built around the circular control. Padding is the source's 6px
+   inset, which is what leaves the circle almost flush to the capsule edge. */
+.pill--lead,
+.pill--marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: var(--pill-pad);
+  border: var(--hairline) solid var(--c-fg);
+  border-radius: var(--radius-pill);
+  white-space: normal;
+}
+
 .pill__dot {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: 3.05em; height: 3.05em;
-  margin: 0.28em;
+  width: var(--dot);
+  height: var(--dot);
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   background: var(--c-fg);
   color: var(--c-bg);
+  font: inherit;
+  cursor: pointer;
   transition: transform var(--dur-ui) var(--ease-out);
 }
-.pill__dot svg { width: 42%; height: 42%; fill: none; stroke: currentColor; stroke-width: 1.6; }
-.pill--arrow .pill__label { padding-left: 1em; }
-a.pill--arrow:hover .pill__dot,
-a.pill--arrow:focus-visible .pill__dot { transform: translateY(2px); }
-a.pill--arrow:hover, a.pill--arrow:focus-visible { background: none; color: inherit; }
+.pill__dot svg { width: 36%; height: 36%; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.pill__dot:hover, .pill__dot:focus-visible { transform: translateY(3px); }
+
+/* Circle on the left, label to its right. */
+.pill--lead .pill__label {
+  padding-left: var(--pill-gap);
+  padding-right: var(--pill-end);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+/* Circle on the RIGHT, label to its left. The source flips it for this one. */
+.pill--marker { flex-direction: row; }
+.pill--marker .pill__label {
+  padding-left: var(--pill-end);
+  padding-right: var(--pill-gap);
+  font-size: var(--fs-section);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+}
 
 /* --- Masthead ------------------------------------------------------------ */
 .masthead {
@@ -146,10 +178,10 @@ a.pill--arrow:hover, a.pill--arrow:focus-visible { background: none; color: inhe
 .tagline {
   grid-column: 1 / 3;
   margin-top: clamp(40px, 9.8vw, 126px);
-  font-size: var(--fs-lead);
-  line-height: var(--lh-lead);
 }
-.tagline .pill__label { white-space: normal; max-width: 24ch; padding-block: 0.8em; }
+/* Two lines, as in the source. Wider and it becomes three and the capsule
+   grows away from its circle. */
+.tagline .pill__label { max-width: 28ch; }
 
 .headline {
   grid-column: 1 / -1;
@@ -165,7 +197,7 @@ a.pill--arrow:hover, a.pill--arrow:focus-visible { background: none; color: inhe
   grid-column: 1 / -1;
   margin-top: clamp(44px, 8.2vw, 106px);
 }
-.marker .pill__label { font-size: var(--fs-section); letter-spacing: -0.03em; }
+
 
 /* --- Project rows ---------------------------------------------------------
    Copy in column 1, three plates across columns 2 to 4. The tallest plate

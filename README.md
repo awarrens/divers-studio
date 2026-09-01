@@ -7,7 +7,7 @@ deployed. The two share nothing but the photography and the `bin/` scripts.
 |---|---|---|
 | source | Readymag "Horizon" (6357495) | Readymag "Millls" (6149307) |
 | ground | `#131212` dark | `#ffffff` light |
-| type | Inter 400/500, 8-11px canvas | Inter 400 only, 14-56px canvas |
+| type | Inter 400/500, 8-11px canvas | IBM Plex Sans 400 only, 14-56px canvas |
 | motion | horizontal filmstrip | vertical scroll |
 | layout | absolute canvas rebuilt as flex | four-column grid |
 
@@ -28,8 +28,11 @@ Notes specific to it:
 - The source is a 3400px scroll on a 1024 canvas. Its entry page is the one
   Readymag names "Home" (`rel=next` points at project-one). "Drag" is a
   modifier, an interaction plugin, not a page.
-- Type is Inter 400 throughout. Hierarchy comes only from size and tracking,
-  never weight, because the source loads no second weight.
+- Type is IBM Plex Sans 400 throughout, swapped in for the source's Inter.
+  Still a single weight, so hierarchy comes only from size and tracking, never
+  weight. The display tracking is still the source's `-3px at 56px`
+  (`-0.055em`), which was drawn for Inter; Plex is narrower and carries it a
+  little tighter than it wants. `--ls-display: -0.03em` if that reads cramped.
 - The 56px statement is genuinely tinted: its own style, "H1 New", sets
   `color: 00000064`, 39% black. The 48px headline sets no color, so it is
   black. Grey lines in a screencapture of the source are mid-fade, not a

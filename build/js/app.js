@@ -28,4 +28,25 @@ function initReveal() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', initReveal);
+/* The circular arrows are real controls, so give them something to do:
+   move to the section they point at. Focus follows the scroll, otherwise
+   keyboard users are left where they started. */
+function initScrollButtons() {
+  document.querySelectorAll('[data-scroll-to]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.querySelector(btn.dataset.scrollTo);
+      if (!target) return;
+      target.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initReveal();
+  initScrollButtons();
+});
