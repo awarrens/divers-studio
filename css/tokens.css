@@ -24,8 +24,10 @@
      position and from the photographs, not from type. */
   --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  --fs-nav:     clamp(10px, 0.98vw, 14px);  /* 10 @1024, lh 11, ls -0.1 */
-  --fs-caption: clamp(11px, 1.17vw, 16px);  /* 12 @1024, lh 12, ls -0.1 */
+  /* Source is 10 and 12 on the 1024 canvas, and renders 1:1 even on a wide
+     display, so it is genuinely tiny. Set roughly a third larger here. */
+  --fs-nav:     clamp(13px, 1.27vw, 18px);  /* source 10 @1024, lh 11, ls -0.1 */
+  --fs-caption: clamp(14px, 1.46vw, 20px);  /* source 12 @1024, lh 12, ls -0.1 */
 
   --lh-nav:     1.1;      /* 11/10 */
   --lh-caption: 1.0;      /* 12/12 */

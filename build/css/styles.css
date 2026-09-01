@@ -70,8 +70,14 @@ a { color: inherit; text-decoration: none; }
 .chrome__social a:hover { color: var(--c-accent); }
 
 /* --- Scroll track + sticky stage ------------------------------------------
-   Track height is set from JS to the strip's overflow, so the sideways
-   distance and the scroll distance match exactly at any viewport. */
+   Every plate is fixed in the stage and travels its own distance, exactly as
+   the source has it. Plate n starts at data-x and moves data-dx, and because
+   dx grows faster than x the plates converge: they start spread across
+   2697 canvas units and finish inside a 346 unit band, stacked and only
+   ~44 apart. That pile-up is the effect, not a strip sliding past.
+
+   One scale factor drives everything, so positions, travel and plate size
+   stay in the same coordinate system at any viewport. JS sets --scale. */
 .track { position: relative; }
 
 .stage {
@@ -79,35 +85,47 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   height: 100svh;
   overflow: hidden;
-  display: flex;
-  align-items: center;
+  --scale: 1;
 }
 
-.strip {
-  display: flex;
-  gap: var(--plate-gap);
-  padding-inline: var(--edge);
+/* --- Plates ---------------------------------------------------------------
+   The plate is what is centred vertically; the caption hangs below it, which
+   is how the source has it (picture band centred, caption 18.7 beneath). */
+.shot {
+  position: absolute;
+  left: var(--edge);
+  top: 50%;
+  width: calc(327px * var(--scale));
+  aspect-ratio: var(--plate-ratio);
+  transform: translate3d(var(--tx, 0px), -50%, 0);
   will-change: transform;
 }
 
-/* --- Plates --------------------------------------------------------------- */
-.shot { flex: 0 0 var(--plate-w); }
-
 .shot__plate {
-  aspect-ratio: var(--plate-ratio);
+  position: absolute;
+  inset: 0;
   background: var(--c-plate);
   overflow: hidden;
 }
 .shot__plate img { width: 100%; height: 100%; object-fit: cover; }
 
+/* Captions belong to the spread-out state only. In the source they are
+   visible at rest and switch to visibility:hidden once the run begins, so
+   they never travel and never pile up on each other. Faded here rather than
+   switched, driven by the same scroll progress. */
 .shot__cap {
-  margin: var(--cap-gap) 0 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: var(--cap-op, 1);
+  margin-top: calc(18.7px * var(--scale));
   font-size: var(--fs-caption);
   line-height: var(--lh-caption);
   font-weight: var(--fw-med);
   text-transform: uppercase;
+  white-space: nowrap;
 }
-.shot__cap span { display: block; }
+.shot__title, .shot__year { display: block; }
 .shot__year { padding-top: 0.35em; }
 
 a.shot:hover .shot__cap,
@@ -122,15 +140,28 @@ a.shot:focus-visible .shot__cap { color: var(--c-accent); }
     position: static;
     height: auto;
     overflow: visible;
-    display: block;
-  }
-  .strip {
-    flex-direction: column;
-    gap: clamp(30px, 9vw, 54px);
-    transform: none !important;
     padding-block: clamp(70px, 20vw, 110px);
   }
-  .shot { flex: 0 0 auto; }
+  /* Absolute, converging plates are a desktop conceit. On a phone they go
+     back to being an ordinary list. */
+  .shot {
+    position: static;
+    width: auto;
+    aspect-ratio: auto;
+    transform: none !important;
+    display: block;
+    margin-bottom: clamp(52px, 15vw, 84px);
+  }
+  .shot__plate {
+    position: static;
+    display: block;
+    aspect-ratio: var(--plate-ratio);
+  }
+  .shot__cap {
+    position: static;
+    display: block;
+    margin-top: clamp(8px, 2.4vw, 14px);
+  }
   :root { --fs-nav: 11px; --fs-caption: 12px; }
 }
 

@@ -34,8 +34,15 @@ Notes:
   almost exactly. The ratio 0.908 is very nearly square.
 - Only Inter Tight 500 actually loads. 400 is declared and requested but
   nothing visible uses it, so the browser never fetches it.
-- Images are grey placeholders. Each plate is an empty `div.shot__plate` with
-  the aspect ratio on it; drop an `<img>` inside and it covers automatically.
+- Captions belong to the spread state only. In the source they are visible at
+  rest and flip to `visibility: hidden` once the run begins, somewhere between
+  8% and 15% of the scroll, so they never travel and never pile up. Faded here
+  over that same window rather than switched.
+- Plates are cut at 3x by `bin/make-plate.sh`, which caps at the source's own
+  width so nothing is upscaled. Three sources are smaller than the 920 device
+  pixels a 1440 retina viewport asks for: `shot-1` (896), `shot-2` (768) and
+  `shot-7` (735). They are as sharp as those files allow; only bigger
+  originals will improve them.
 - The scroll handler deliberately uses no `requestAnimationFrame` and no
   ticking latch. A latch unset inside a rAF callback wedges permanently if
   that callback is ever dropped, and scrolling then silently stops moving the
