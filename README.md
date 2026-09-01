@@ -34,10 +34,18 @@ Notes:
   almost exactly. The ratio 0.908 is very nearly square.
 - Only Inter Tight 500 actually loads. 400 is declared and requested but
   nothing visible uses it, so the browser never fetches it.
-- Captions belong to the spread state only. In the source they are visible at
-  rest and flip to `visibility: hidden` once the run begins, somewhere between
-  8% and 15% of the scroll, so they never travel and never pile up. Faded here
-  over that same window rather than switched.
+- **Plates do not move in lockstep.** They all travel at the same speed, so
+  the nearest lands first and the furthest last. Landed plates sit as slivers
+  on the left while the ones still travelling are still open on the right.
+  Each plate's duration is proportional to its distance; measured against the
+  live template, plate 7 reads 0.51 progress at 20% scroll and this model
+  predicts 0.52.
+- Captions follow their own plate, not a global timer. A label is up while its
+  plate is still travelling and fades as that plate lands, so the count falls
+  9, 7, 5, 3 across the run rather than every label smearing together. Plate 1
+  has no travel, hence a FLOOR so its label fades instead of snapping.
+- One deliberate deviation: the **last plate keeps its label for good**, so the
+  run ends on a titled frame. The source drops that one too.
 - Plates are cut at 3x by `bin/make-plate.sh`, which caps at the source's own
   width so nothing is upscaled. Three sources are smaller than the 920 device
   pixels a 1440 retina viewport asks for: `shot-1` (896) and `shot-7` (735).
