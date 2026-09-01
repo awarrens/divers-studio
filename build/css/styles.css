@@ -1,0 +1,299 @@
+/* ==========================================================================
+   Horizon starter: a clean rebuild of the filmstrip portfolio pattern.
+   Flow layout instead of Readymag's absolute positioning + scale transform.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  -webkit-font-smoothing: antialiased;
+  font-synthesis-weight: none;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--c-fg);
+  outline-offset: 3px;
+}
+
+.u-visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* --- Shell ---------------------------------------------------------------
+   Full viewport column: header, strip, footer hint. The strip is the only
+   part that scrolls, and it scrolls sideways. */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+/* --- Header --------------------------------------------------------------- */
+.masthead {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gutter);
+  height: var(--header-h);
+  padding-inline: var(--gutter);
+}
+
+.masthead__mark {
+  font-weight: var(--fw-regular);
+  white-space: nowrap;
+}
+
+.masthead__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.2vw, 22px);
+}
+
+.masthead__link {
+  padding-block: 4px;
+  border-bottom: var(--border-hair) solid transparent;
+  transition: border-color var(--dur-ui) var(--ease-out);
+}
+.masthead__link:hover,
+.masthead__link[aria-current="page"] { border-bottom-color: var(--c-fg); }
+
+/* Pill button: the single rounded element in the whole design. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.62em 1.15em;
+  border: var(--border-hair) solid var(--c-fg);
+  border-radius: var(--radius-pill);
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font: inherit;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color     var(--dur-ui) var(--ease-out),
+    color            var(--dur-ui) var(--ease-out);
+}
+.pill:hover,
+.pill:focus-visible {
+  background: var(--c-invert);
+  border-color: var(--c-invert);
+  color: var(--c-bg);
+}
+
+/* --- Filmstrip ------------------------------------------------------------
+   Horizontal scroller. Cards are equal width, portrait, snapped. */
+.strip {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--card-gap);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.strip::-webkit-scrollbar { display: none; }
+.strip.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+
+.card {
+  flex: 0 0 var(--card-w);
+  scroll-snap-align: center;
+}
+
+/* Two stacked images; the second fades in on hover. */
+.card__media {
+  position: relative;
+  aspect-ratio: var(--card-ratio);
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background: #1e1c1c;
+}
+.card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+.card__media img + img {
+  opacity: 0;
+  transition: opacity var(--dur-swap) linear,
+              transform var(--dur-hover) var(--ease-out);
+}
+.card:hover .card__media img + img,
+.card:focus-within .card__media img + img { opacity: 1; }
+
+/* Card hover: a 2.5% push-in on the frame, clipped by the media box, and a
+   small shove on the caption arrow. Scale rather than lift or shadow, because
+   nothing else in this design casts one. */
+.card:hover .card__media img,
+.card:focus-within .card__media img { transform: scale(1.025); }
+
+.card__meta span {
+  display: inline-block;
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+.card:hover .card__meta span,
+.card:focus-within .card__meta span { transform: translateX(3px); }
+
+/* Caption sits over the bottom of the image, no scrim in the original. */
+.card__caption {
+  position: absolute;
+  z-index: 1;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--caption-pad);
+}
+.card__title {
+  margin: 0;
+  font-size: var(--fs-title);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-tight);
+}
+.card__meta {
+  margin: 0.35em 0 0;
+  font-size: var(--fs-caption);
+  line-height: var(--lh-body);
+}
+
+/* Scrim under the caption. The source template had none, because every still
+   in it happened to be dark at the bottom. Real photography is not that
+   obliging: sunlit water put the caption on a near-white background. So this
+   is on by default and opted out of, not in. Sized against the image rather
+   than the caption box, or it is only ~70px tall and does nothing.
+   Sits above both stacked images; .card__caption lifts above it. */
+.card:not(.card--intro):not(.card--no-scrim) .card__media::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 58%;
+  background: linear-gradient(
+    to top,
+    rgba(19, 18, 18, 0.94) 0%,
+    rgba(19, 18, 18, 0.86) 18%,
+    rgba(19, 18, 18, 0.62) 42%,
+    rgba(19, 18, 18, 0.30) 68%,
+    rgba(19, 18, 18, 0)    100%
+  );
+  pointer-events: none;
+}
+
+/* Intro card: type only, no plate. The aspect-ratio gives it a card-sized box
+   so it centres on the same line as the frames, which is what top-aligns the
+   first line of text with their top edge. Drop the aspect-ratio and the box
+   shrinks to the copy, leaving the block vertically centred instead.
+   align-self: flex-start is not the answer: a single flex line takes the
+   container's full cross size, so that pins it to the top of the strip. */
+.card--intro {
+  aspect-ratio: var(--card-ratio);
+}
+.card--intro .card__body {
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.35;
+  max-width: 34ch;
+}
+
+/* End of the strip: not a project, just the way through to the full index.
+   Takes a card-sized box like the intro so it holds the grid rhythm, with the
+   pill centred in it as an end cap. */
+.card--action {
+  aspect-ratio: var(--card-ratio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Type and arrow only, no chrome. Keeps the pill's weight so it still reads as
+   the one action in the strip; the hover rule is the only affordance left once
+   the outline is gone, so it earns its keep here. */
+.link-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-block: 3px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0;
+  border-bottom: var(--border-hair) solid transparent;
+  transition: border-color var(--dur-ui) var(--ease-out);
+}
+.link-action:hover,
+.link-action:focus-visible { border-bottom-color: var(--c-fg); }
+
+/* --- Footer hint ---------------------------------------------------------- */
+.hint {
+  flex: 0 0 auto;
+  padding: 0 var(--gutter) clamp(16px, 2.4vw, 34px);
+  font-size: var(--fs-caption);
+  color: var(--c-fg);
+  transition: opacity var(--dur-ui) var(--ease-out);
+}
+.hint__pulse { animation: pulse 1.6s var(--ease-out) infinite alternate; }
+
+@keyframes pulse { from { opacity: 1; } to { opacity: 0.5; } }
+
+/* --- Reveal --------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+[data-reveal].is-in { opacity: 1; }
+
+/* --- Mobile ---------------------------------------------------------------
+   The source template has no real mobile story. Below 720px the strip
+   becomes an ordinary vertical list, which is what the content wants. */
+@media (max-width: 720px) {
+  .strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(28px, 7vw, 44px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: none;
+    padding-block: clamp(20px, 6vw, 40px);
+  }
+  .card { flex: 0 0 auto; }
+  .card--intro,
+  .card--action { aspect-ratio: auto; }
+  .card--intro .card__body { max-width: none; }
+  .hint { display: none; }
+  :root { --fs-body: 15px; --fs-title: 15px; --fs-caption: 13px; }
+}
+
+/* --- Reduced motion ------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transition: none; }
+  .card:hover .card__media img,
+  .card:focus-within .card__media img,
+  .card:hover .card__meta span,
+  .card:focus-within .card__meta span { transform: none; }
+  .hint__pulse { animation: none; }
+  .strip { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

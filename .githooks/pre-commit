@@ -1,0 +1,13 @@
+#!/bin/sh
+# Regenerate build/ and stage it, so committed output cannot drift from source.
+#
+# build/ exists only because the Render static site was created with Publish
+# Directory = "build". A GitHub Action would be the better home for this, but
+# adding workflow files needs the `workflow` OAuth scope, which this machine's
+# token does not have.
+#
+# Enable once per clone:  git config core.hooksPath .githooks
+set -e
+[ -f bin/build.sh ] || exit 0
+sh bin/build.sh >/dev/null
+git add build

@@ -15,11 +15,22 @@ There is no build step. Any host should serve the repo root as-is.
 
 - **GitHub Pages** is live at https://awarrens.github.io/divers-studio/ from
   `main` / root. Pages needs a public repo on the free plan.
-- **Render** static sites default to a `build` publish directory, which does
-  not exist here and fails with `Publish directory build does not exist!`. Set
-  Publish Directory to `.` and leave Build Command empty. `render.yaml` records
-  this, but only Blueprint-managed services read it; a service created by hand
-  in the dashboard keeps its own settings.
+- **Render** static sites default to a `build` publish directory, which fails
+  here with `Publish directory build does not exist!` because there is nothing
+  to build. Two ways out:
+  - Correct fix: set Publish Directory to `.` in the dashboard, leave Build
+    Command empty, then delete `build/`, `bin/build.sh` and
+    `.githooks/`. `render.yaml` records this config, but only Blueprint-managed
+    services read it; a dashboard-created service keeps its own settings.
+  - Shim in place now: `build/` is committed so the existing service deploys
+    untouched. `bin/build.sh` regenerates it, and `.githooks/pre-commit` runs
+    that on every commit so it cannot drift from source. Enable the hook once
+    per clone with `git config core.hooksPath .githooks`. It does mean the five
+    photos are stored twice, about 750KB.
+
+    A GitHub Action would be the better home for that guard, but pushing
+    workflow files needs the `workflow` OAuth scope:
+    `gh auth refresh -h github.com -s workflow`.
 
 That server sends `Last-Modified` but no `Cache-Control`, so a soft reload can
 serve stale CSS and make a fix look like it did not land. The asset links in
