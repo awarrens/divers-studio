@@ -40,9 +40,13 @@ Notes:
   over that same window rather than switched.
 - Plates are cut at 3x by `bin/make-plate.sh`, which caps at the source's own
   width so nothing is upscaled. Three sources are smaller than the 920 device
-  pixels a 1440 retina viewport asks for: `shot-1` (896), `shot-2` (768) and
-  `shot-7` (735). They are as sharp as those files allow; only bigger
-  originals will improve them.
+  pixels a 1440 retina viewport asks for: `shot-1` (896) and `shot-7` (735).
+  They are as sharp as those files allow; only bigger originals will improve
+  them.
+- The wordmark sits top right and inherits the chrome's size, weight and
+  uppercasing, so it reads as part of the nav rather than as a logo. It
+  renders DIVERS.STUDIO; drop `text-transform` on `.chrome__mark` to keep the
+  brand's own lowercase.
 - The scroll handler deliberately uses no `requestAnimationFrame` and no
   ticking latch. A latch unset inside a rAF callback wedges permanently if
   that callback is ever dropped, and scrolling then silently stops moving the

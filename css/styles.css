@@ -58,6 +58,16 @@ a { color: inherit; text-decoration: none; }
 .chrome__nav a:hover { color: var(--c-accent); }
 .chrome__nav a[aria-current="page"] { color: var(--c-accent); }
 
+/* Wordmark, top right. Inherits the chrome's size, weight and uppercasing,
+   so it sits in the same register as the nav rather than reading as a logo. */
+.chrome__mark {
+  position: absolute;
+  top: var(--edge);
+  right: var(--edge);
+  transition: color var(--dur-ui) var(--ease-out);
+}
+.chrome__mark:hover { color: var(--c-accent); }
+
 .chrome__social {
   position: absolute;
   left: var(--edge);
