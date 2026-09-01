@@ -1,0 +1,15 @@
+# Render Blueprint for the divers.studio homepage.
+#
+# There is no build step. The site is plain HTML/CSS/JS served straight from
+# the repo root, so the publish path is "." and not "build".
+#
+# NOTE: a Blueprint only configures Blueprint-managed services. A static site
+# that was created by hand in the dashboard keeps its own settings, so that one
+# needs Publish Directory changed from "build" to "." in the dashboard itself.
+
+services:
+  - type: web
+    name: divers-studio
+    runtime: static
+    staticPublishPath: .
+    autoDeploy: true

@@ -9,6 +9,18 @@ Open `index.html` directly, or serve it:
 python3 -m http.server 4200
 ```
 
+## Deploying
+
+There is no build step. Any host should serve the repo root as-is.
+
+- **GitHub Pages** is live at https://awarrens.github.io/divers-studio/ from
+  `main` / root. Pages needs a public repo on the free plan.
+- **Render** static sites default to a `build` publish directory, which does
+  not exist here and fails with `Publish directory build does not exist!`. Set
+  Publish Directory to `.` and leave Build Command empty. `render.yaml` records
+  this, but only Blueprint-managed services read it; a service created by hand
+  in the dashboard keeps its own settings.
+
 That server sends `Last-Modified` but no `Cache-Control`, so a soft reload can
 serve stale CSS and make a fix look like it did not land. The asset links in
 `index.html` carry a `?v=` stamp for that reason; bump it, or hard reload
