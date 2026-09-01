@@ -1,4 +1,43 @@
-# divers.studio
+# divers.studio, concept two
+
+**This branch is concept two.** Concept one lives on `main` and is what is
+deployed. The two share nothing but the photography and the `bin/` scripts.
+
+| | concept one (`main`) | concept two (this branch) |
+|---|---|---|
+| source | Readymag "Horizon" (6357495) | Readymag "Millls" (6149307) |
+| ground | `#131212` dark | `#ffffff` light |
+| type | Inter 400/500, 8-11px canvas | Inter 400 only, 14-56px canvas |
+| motion | horizontal filmstrip | vertical scroll |
+| layout | absolute canvas rebuilt as flex | four-column grid |
+
+Concept two stops just above the source's "An independent practice" section,
+as asked. The header, hero collage, statement, tagline, headline, Projects
+marker and three project rows are in; the About block and footer below that
+point are not.
+
+Notes specific to it:
+
+- The source is a 3400px scroll on a 1024 canvas. Its entry page is the one
+  Readymag names "Home" (`rel=next` points at project-one). "Drag" is a
+  modifier, an interaction plugin, not a page.
+- Type is Inter 400 throughout. Hierarchy comes only from size and tracking,
+  never weight, because the source loads no second weight.
+- The 56px statement is genuinely tinted: its own style, "H1 New", sets
+  `color: 00000064`, 39% black. The 48px headline sets no color, so it is
+  black. Grey lines in a screencapture of the source are mid-fade, not a
+  two-tone treatment.
+- The hero collage overlaps by design and cannot be expressed as a grid, so
+  that band is a fixed-ratio box with plates placed by percentage taken from
+  the source coordinates.
+- One deliberate deviation: the source runs the statement 566 wide (55%) so
+  its last lines cross a photo. Text sits above the plates there (z 327 vs
+  302-305), but at 39% black over a photo it stops being readable, so the box
+  is 35% here, the widest that still clears the collage.
+
+Original starter notes follow.
+
+## Concept one
 
 Site starter. A clean rebuild of the filmstrip portfolio pattern from the
 Readymag template "Horizon" (`readymag.com/designs/6357495`).

@@ -7,104 +7,115 @@
   <meta name="description" content="divers.studio, a production company. Selected work.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1788275662">
-  <link rel="stylesheet" href="css/styles.css?v=1788275662">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1788279241">
+  <link rel="stylesheet" href="css/styles.css?v=1788279241">
 </head>
 <body>
-  <div class="shell">
+  <div class="wrap">
 
     <header class="masthead">
-      <a class="masthead__mark" href="/">divers.studio</a>
+      <a class="pill masthead__mark" href="/">divers.studio</a>
       <nav class="masthead__nav" aria-label="Primary">
-        <a class="masthead__link" href="/work/">Work</a>
-        <a class="masthead__link" href="/about/">About</a>
-        <a class="pill" href="/contact/">Get in touch <span aria-hidden="true">&rarr;</span></a>
+        <a class="pill" href="/about/">About</a>
+        <a class="pill" href="/contact/">Contact</a>
       </nav>
     </header>
 
-    <main class="strip" tabindex="0" role="region" aria-label="Selected work, scroll sideways">
+    <!-- Hero: plates scattered across the grid with the statement laid over them -->
+    <div class="hero">
+      <figure class="hero__plate hero__plate--a" data-reveal>
+        <img src="assets/collage-1.jpg" alt="Ridgeline above a deep valley" width="464" height="398">
+      </figure>
+      <figure class="hero__plate hero__plate--b" data-reveal>
+        <img src="assets/collage-2.jpg" alt="Skier carving through powder" width="460" height="400">
+      </figure>
+      <figure class="hero__plate hero__plate--c" data-reveal>
+        <img src="assets/collage-3.jpg" alt="Trail runner on a climb" width="460" height="560">
+      </figure>
+      <figure class="hero__plate hero__plate--d" data-reveal>
+        <img src="assets/collage-4.jpg" alt="Surfer walking up from the beach at dusk" width="464" height="480">
+      </figure>
 
-      <!-- Intro card: copy sits below the plate, not over it -->
-      <article class="card card--intro" data-reveal>
-        <p class="card__body">
-          divers.studio makes commercial, documentary and branded film.
-          Small crew, heavy packs, and a bias for the location everyone else
-          wrote off as impractical.
+      <!-- Kept short on purpose: the statement sits over the collage, and at
+           39% black any line long enough to cross a plate stops being readable. -->
+      <h1 class="hero__statement" data-reveal>
+        Film is the art of being there before it happens.
+      </h1>
+    </div>
+
+    <p class="tagline" data-reveal>
+      <span class="pill pill--arrow">
+        <span class="pill__dot" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+        </span>
+        <span class="pill__label">Commercial, documentary and branded film, anywhere the road stops.</span>
+      </span>
+    </p>
+
+    <p class="headline" data-reveal>
+      A small crew shooting where the
+      light is difficult, the access is
+      earned, and the story is already
+      happening without us.
+    </p>
+
+    <p class="marker" data-reveal>
+      <span class="pill pill--arrow">
+        <span class="pill__dot" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+        </span>
+        <span class="pill__label">Projects</span>
+      </span>
+    </p>
+
+    <article class="row row--a" data-reveal>
+      <div class="row__meta">
+        <h2 class="row__title">Open Water <span class="row__year">#2026</span></h2>
+        <p class="row__note">
+          Shot over nine days on a coast that only cooperates at dawn. A single
+          camera, no lights, and a crew small enough to move when the swell did.
         </p>
-      </article>
-
-      <article class="card" data-reveal>
-        <a href="/work/first-light/">
-          <div class="card__media">
-            <img src="assets/first-light-a.jpg" alt="Hiker on a trail above a deep mountain valley" width="640" height="930">
-            <div class="card__caption">
-              <h2 class="card__title">First Light</h2>
-              <p class="card__meta">Commercial, Director &amp; Post <span aria-hidden="true">&rarr;</span></p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="card" data-reveal>
-        <a href="/work/cold-open/">
-          <div class="card__media">
-            <img src="assets/cold-open-a.jpg" alt="Skier carving through powder, black and white" width="640" height="930" loading="lazy">
-            <div class="card__caption">
-              <h2 class="card__title">Cold Open</h2>
-              <p class="card__meta">Short film, Production &amp; Edit <span aria-hidden="true">&rarr;</span></p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="card" data-reveal>
-        <a href="/work/handmade/">
-          <div class="card__media">
-            <img src="assets/handmade-a.jpg" alt="Bottle mid-air against a blue sky" width="640" height="930" loading="lazy">
-            <div class="card__caption">
-              <h2 class="card__title">Handmade</h2>
-              <p class="card__meta">Brand film, Concept &amp; Direction <span aria-hidden="true">&rarr;</span></p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="card" data-reveal>
-        <a href="/work/the-long-run/">
-          <div class="card__media">
-            <img src="assets/long-run-a.jpg" alt="Trail runner kicking up dirt on a mountain climb" width="640" height="930" loading="lazy">
-            <div class="card__caption">
-              <h2 class="card__title">The Long Run</h2>
-              <p class="card__meta">Documentary, Full production <span aria-hidden="true">&rarr;</span></p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="card" data-reveal>
-        <a href="/work/open-water/">
-          <div class="card__media">
-            <img src="assets/open-water-a.jpg" alt="Surfer walking up from the beach at dusk, board under arm" width="640" height="930" loading="lazy">
-            <div class="card__caption">
-              <h2 class="card__title">Open Water</h2>
-              <p class="card__meta">Campaign, Production &amp; Post <span aria-hidden="true">&rarr;</span></p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-
-      <div class="card card--action" data-reveal>
-        <a class="link-action" href="/work/">View all <span aria-hidden="true">&rarr;</span></a>
+        <a class="row__link" href="/work/open-water/">View Project</a>
       </div>
+      <figure class="row__plate row__plate--0"><img src="assets/row1-a.jpg" alt="Freediver on rocks at dusk" width="464" height="520" loading="lazy"></figure>
+      <figure class="row__plate row__plate--1"><img src="assets/row1-b.jpg" alt="Runner on a seawall" width="460" height="440" loading="lazy"></figure>
+      <figure class="row__plate row__plate--2"><img src="assets/row1-c.jpg" alt="Surfer on a dune path" width="464" height="400" loading="lazy"></figure>
+    </article>
 
-    </main>
+    <article class="row row--b" data-reveal>
+      <div class="row__meta">
+        <h2 class="row__title">First Light <span class="row__year">#2026</span></h2>
+        <p class="row__note">
+          A commercial cut that had to pass for documentary. Everything handheld,
+          nothing blocked, and the whole thing carried by one long walk uphill.
+        </p>
+        <a class="row__link" href="/work/first-light/">View Project</a>
+      </div>
+      <figure class="row__plate row__plate--0"><img src="assets/row2-a.jpg" alt="Fly casting on a mountain river" width="464" height="520" loading="lazy"></figure>
+      <figure class="row__plate row__plate--1"><img src="assets/row2-b.jpg" alt="Hiker above a valley" width="460" height="440" loading="lazy"></figure>
+      <figure class="row__plate row__plate--2"><img src="assets/row2-c.jpg" alt="Skier in trees" width="464" height="400" loading="lazy"></figure>
+    </article>
 
-    <p class="hint"><span class="hint__pulse" aria-hidden="true">&rarr;</span> Scroll for more work</p>
+    <article class="row row--c" data-reveal>
+      <div class="row__meta">
+        <h2 class="row__title">Cold Open <span class="row__year">#2025</span></h2>
+        <p class="row__note">
+          Two weeks of snow, one week of usable weather. Cut monochrome because
+          the colour was never the point and the grain was doing the work.
+        </p>
+        <a class="row__link" href="/work/cold-open/">View Project</a>
+      </div>
+      <figure class="row__plate row__plate--0"><img src="assets/row3-a.jpg" alt="Trail runner kicking up dirt" width="460" height="520" loading="lazy"></figure>
+      <figure class="row__plate row__plate--1"><img src="assets/row3-b.jpg" alt="Surfer at dusk" width="464" height="440" loading="lazy"></figure>
+      <figure class="row__plate row__plate--2"><img src="assets/row3-c.jpg" alt="Bottle against a blue sky" width="464" height="400" loading="lazy"></figure>
+    </article>
+
+    <!-- Source continues into "An independent practice". Stopping above it. -->
+    <div class="tail"></div>
 
   </div>
 
-  <script src="js/app.js?v=1788275662"></script>
+  <script src="js/app.js?v=1788279241"></script>
 </body>
 </html>

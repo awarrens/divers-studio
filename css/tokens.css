@@ -1,60 +1,63 @@
 /* ==========================================================================
-   Tokens extracted from the Readymag "Horizon" template (readymag.com/designs/6357495)
-   Values measured off the live DOM: computed styles, widget geometry, keyframes.
-   Ratios are expressed against the template's 1024px design canvas.
+   Concept two. Tokens measured off the Readymag "Millls" template
+   (readymag.com/designs/6149307), entry page "Home": a 3400px scroll on a
+   1024px canvas. Light ground, where concept one was dark.
+
+   Every value below was read out of that project's widget JSON, not guessed.
+   Original numbers are in the comments.
    ========================================================================== */
 
 :root {
   /* ---- Color ------------------------------------------------------------
-     The template runs on exactly two colors plus white. There is no accent.
-     (Readymag's own store chrome uses orange/red; that is not the design.) */
-  --c-bg:            #131212;  /* rgb(19,18,18)     page canvas            */
-  --c-fg:            #e1dedb;  /* rgb(225,222,219)  all text, all borders  */
-  --c-fg-muted:      #676563;  /* rgb(103,101,99)   secondary text         */
-  --c-invert:        #ffffff;  /* button hover fill, photo backdrops       */
-  --c-scrim:         rgba(19, 18, 18, 0.95);
+     Two colors and one tint. The red (F00001) in the source is a Readymag
+     hotspot pin, editor furniture, not part of the design. */
+  --c-bg:     #ffffff;
+  --c-fg:     #000000;
+  --c-tint:   rgba(0, 0, 0, 0.392);  /* 00000064, the greyed statement */
+  --c-rule:   rgba(0, 0, 0, 0.14);   /* row dividers */
 
   /* ---- Type -------------------------------------------------------------
-     Inter, weights 400 and 500 only. Nothing else is loaded.
-     Original sizes are px on a 1024 canvas that scales with the viewport,
-     so they behave as vw. Reproduced here as bounded clamp(). */
+     Inter 400 only. No second weight is loaded by the source at all, so
+     hierarchy is carried entirely by size and tracking. */
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fw: 400;
 
-  --fs-body:    clamp(13px, 1.074vw, 18px);  /*  11px @1024  nav, bio, buttons */
-  --fs-title:   clamp(12px, 0.879vw, 15px);  /*   9px @1024  card title        */
-  --fs-caption: clamp(11px, 0.781vw, 13px);  /*   8px @1024  card meta, hints  */
+  /* Canvas sizes scale with the viewport, as they do in Readymag. Bounded
+     with clamp() so they stop growing on very wide screens. */
+  --fs-statement: clamp(30px, 5.47vw, 72px);  /* 56 @1024, lh 56, ls -3   */
+  --fs-headline:  clamp(26px, 4.69vw, 62px);  /* 48 @1024, lh 60, ls -3   */
+  --fs-section:   clamp(19px, 2.73vw, 34px);  /* 28 @1024                 */
+  --fs-lead:      clamp(15px, 1.76vw, 22px);  /* 18 @1024, lh 23          */
+  --fs-body:      clamp(14px, 1.56vw, 19px);  /* 16 @1024                 */
+  --fs-small:     clamp(12px, 1.37vw, 17px);  /* 14 @1024, lh 16          */
 
-  --lh-tight: 1.18;   /* 13/11 measured on nav and card titles */
-  --lh-body:  1.25;   /* 10/8  measured on captions            */
-  --ls-tight: -0.02em;/* -0.2px @11px measured                 */
-
-  --fw-regular: 400;
-  --fw-medium:  500;
+  --lh-statement: 1.0;    /* 56/56 */
+  --lh-headline:  1.25;   /* 60/48 */
+  --lh-lead:      1.28;   /* 23/18 */
+  --lh-small:     1.15;   /* 16/14 */
+  --ls-display:   -0.055em; /* -3px at 56px */
 
   /* ---- Layout -----------------------------------------------------------
-     Measured in the 1280px viewport the template rendered into. */
-  --gutter:      clamp(16px, 2.34vw, 48px);    /*  30px @1280 page inset     */
-  --card-w:      clamp(200px, 17.97vw, 320px); /* 230px @1280                */
-  --card-gap:    clamp(8px, 0.94vw, 16px);     /*  12px @1280                */
-  --card-ratio:  230 / 334;                    /* portrait, 0.688            */
-  --header-h:    clamp(48px, 4.2vw, 72px);
-  --caption-pad: clamp(8px, 0.86vw, 14px);
+     Four columns on the 1024 canvas: x = 20, 270, 522, 774. Column 230,
+     gutter 20, page inset 20, content 984. */
+  --inset:    1.95vw;                        /*  20 / 1024 */
+  --col:      22.46vw;                       /* 230 / 1024 */
+  --gutter:   1.95vw;                        /*  20 / 1024 */
+  --rule-gap: clamp(28px, 4.7vw, 64px);
 
-  --radius-media: 0;      /* every image is a hard rectangle */
-  --radius-pill:  40px;   /* the only curve in the design    */
-  --border-hair:  1px;
+  --radius-pill: 90px;   /* the source's radius_rect on every pill */
+  --hairline: 1px;
 
-  /* ---- Motion -----------------------------------------------------------
-     From the template's keyframes + animation config:
-       reveal    opacity 0 -> 1, 1.6s, ease-out
-       hint      opacity 1 -> 0.5, ease-in-out, alternating
-       img swap  opacity 0.2s
-     Original hero stagger is a full 1.6s between elements. That reads as
-     dead air across a 6 card strip, so the strip stagger is shortened here. */
-  --dur-reveal: 1.6s;
-  --dur-swap:   0.2s;
-  --dur-hover:  0.6s;  /* slow enough to read as a camera push, not a UI bounce */
-  --dur-ui:     0.5s;
-  --ease-out:   cubic-bezier(0, 0, 0.58, 1);
-  --stagger:    120ms;  /* deviation from source: 1.6s -> 120ms */
+  /* ---- Motion ------------------------------------------------------------ */
+  --dur-reveal: 0.9s;
+  --dur-ui:     0.4s;
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --stagger:    90ms;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --inset:  20px;
+    --gutter: 14px;
+  }
 }
