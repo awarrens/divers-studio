@@ -28,13 +28,16 @@
   --fs-statement: clamp(30px, 5.47vw, 72px);  /* 56 @1024, lh 56, ls -3   */
   --fs-headline:  clamp(26px, 4.69vw, 62px);  /* 48 @1024, lh 60, ls -3   */
   --fs-section:   clamp(19px, 2.73vw, 34px);  /* 28 @1024                 */
-  --fs-lead:      clamp(15px, 1.76vw, 22px);  /* 18 @1024, lh 23          */
+  --fs-lead:      clamp(15px, 1.76vw, 22px);  /* 18 @1024, lh 23. Unused
+                                                 since the tagline pill came
+                                                 out; kept as the measured
+                                                 step between body and section */
   --fs-body:      clamp(14px, 1.56vw, 19px);  /* 16 @1024                 */
   --fs-small:     clamp(12px, 1.37vw, 17px);  /* 14 @1024, lh 16          */
 
   --lh-statement: 1.0;    /* 56/56 */
   --lh-headline:  1.25;   /* 60/48 */
-  --lh-lead:      1.28;   /* 23/18 */
+  --lh-lead:      1.28;   /* 23/18, unused, see --fs-lead */
   --lh-small:     1.15;   /* 16/14 */
   --ls-display:   -0.055em; /* -3px at 56px */
 

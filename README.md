@@ -12,9 +12,10 @@ deployed. The two share nothing but the photography and the `bin/` scripts.
 | layout | absolute canvas rebuilt as flex | four-column grid |
 
 Concept two stops just above the source's "An independent practice" section,
-as asked. The header, hero collage, statement, tagline, headline, Projects
-marker and three project rows are in; the About block and footer below that
-point are not.
+as asked. The header, hero collage, statement, headline, Projects marker and
+three project rows are in; the About block and footer below that point are
+not. The source's tagline pill, a capsule with a down arrow between the
+statement and the headline, was built and then removed.
 
 Images are grey placeholders for now. Each plate is a `div.ph` holding the
 photo's proportions via an inline `aspect-ratio`, with `data-src` and

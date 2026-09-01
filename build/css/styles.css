@@ -74,7 +74,6 @@ a.pill:hover, a.pill:focus-visible { background: var(--c-fg); color: var(--c-bg)
 
 /* Capsules built around the circular control. Padding is the source's 6px
    inset, which is what leaves the circle almost flush to the capsule edge. */
-.pill--lead,
 .pill--marker {
   display: inline-flex;
   align-items: center;
@@ -103,16 +102,7 @@ a.pill:hover, a.pill:focus-visible { background: var(--c-fg); color: var(--c-bg)
 .pill__dot svg { width: 36%; height: 36%; fill: none; stroke: currentColor; stroke-width: 1.7; }
 .pill__dot:hover, .pill__dot:focus-visible { transform: translateY(3px); }
 
-/* Circle on the left, label to its right. */
-.pill--lead .pill__label {
-  padding-left: var(--pill-gap);
-  padding-right: var(--pill-end);
-  font-size: var(--fs-lead);
-  line-height: var(--lh-lead);
-}
-
-/* Circle on the RIGHT, label to its left. The source flips it for this one. */
-.pill--marker { flex-direction: row; }
+/* Circle on the right, label to its left. */
 .pill--marker .pill__label {
   padding-left: var(--pill-end);
   padding-right: var(--pill-gap);
@@ -174,15 +164,7 @@ a.pill:hover, a.pill:focus-visible { background: var(--c-fg); color: var(--c-bg)
   text-wrap: balance;
 }
 
-/* --- Tagline + headline --------------------------------------------------- */
-.tagline {
-  grid-column: 1 / 3;
-  margin-top: clamp(40px, 9.8vw, 126px);
-}
-/* Two lines, as in the source. Wider and it becomes three and the capsule
-   grows away from its circle. */
-.tagline .pill__label { max-width: 28ch; }
-
+/* --- Headline ------------------------------------------------------------ */
 .headline {
   grid-column: 1 / -1;
   margin: clamp(40px, 6.8vw, 88px) 0 0;
@@ -289,7 +271,7 @@ a.pill:hover, a.pill:focus-visible { background: var(--c-fg); color: var(--c-bg)
     margin-top: clamp(20px, 5vw, 34px);
   }
 
-  .tagline, .headline, .marker { grid-column: 1 / -1; }
+  .headline, .marker { grid-column: 1 / -1; }
 
   .row { grid-template-columns: repeat(2, 1fr); }
   .row__meta { grid-column: 1 / -1; grid-row: auto; }
