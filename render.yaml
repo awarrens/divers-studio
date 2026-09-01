@@ -1,15 +1,30 @@
-# Render Blueprint for the divers.studio homepage.
+# Render Blueprint for divers.studio.
 #
-# There is no build step. The site is plain HTML/CSS/JS served straight from
-# the repo root, so the publish path is "." and not "build".
+# Two static sites off one repo, one per concept, each pinned to its own
+# branch so they get separate URLs and neither can disturb the other:
 #
-# NOTE: a Blueprint only configures Blueprint-managed services. A static site
-# that was created by hand in the dashboard keeps its own settings, so that one
-# needs Publish Directory changed from "build" to "." in the dashboard itself.
+#   main         concept one, the dark filmstrip      (live, do not disturb)
+#   concept-two  the light scroll-driven stack
+#
+# There is no build step in either. The site is plain HTML/CSS/JS served from
+# the repo root, so staticPublishPath is "." and buildCommand stays empty.
+#
+# NOTE: a Blueprint only configures Blueprint-managed services. The existing
+# concept one service was created by hand in the dashboard, so it keeps its
+# own settings and ignores this file. A new service created by hand needs its
+# Branch and Publish Directory set there too.
 
 services:
   - type: web
     name: divers-studio
     runtime: static
+    branch: main
+    staticPublishPath: .
+    autoDeploy: true
+
+  - type: web
+    name: divers-studio-concept-two
+    runtime: static
+    branch: concept-two
     staticPublishPath: .
     autoDeploy: true
