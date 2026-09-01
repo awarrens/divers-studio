@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Concept two, take two. Tokens measured off the Readymag "Photo Portfolio"
+   template (readymag.com/designs/6017708), entry page "Home page": a 1024
+   canvas whose 3700 height is scroll length, not content height. The content
+   is a horizontal filmstrip that vertical scrolling drives sideways.
+
+   Values are read from that project's widget JSON.
+   ========================================================================== */
+
+:root {
+  /* ---- Color ------------------------------------------------------------
+     Readymag encodes colour as RRGGBB plus opacity 0-100 in hex, so the
+     trailing 64 is 100%, not an 8-bit alpha. 00000064 is solid black and
+     0008FF64 is a solid blue, which is why the active nav item reads bright
+     rather than washed out. */
+  --c-bg:     #ffffff;
+  --c-fg:     #000000;   /* 00000064 */
+  --c-accent: #0008ff;   /* 0008FF64, the current page in the nav */
+  --c-plate:  #ebebeb;   /* placeholder fill standing in for photography */
+
+  /* ---- Type -------------------------------------------------------------
+     Inter Tight, weights 400 and 500. The whole page is 10px and 12px on the
+     1024 canvas: there is no display size anywhere. Hierarchy comes from
+     position and from the photographs, not from type. */
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Source is 10 and 12 on the 1024 canvas, and renders 1:1 even on a wide
+     display, so it is genuinely tiny. Set roughly a third larger here. */
+  --fs-nav:     clamp(13px, 1.27vw, 18px);  /* source 10 @1024, lh 11, ls -0.1 */
+  --fs-caption: clamp(14px, 1.46vw, 20px);  /* source 12 @1024, lh 12, ls -0.1 */
+
+  --lh-nav:     1.1;      /* 11/10 */
+  --lh-caption: 1.0;      /* 12/12 */
+  --ls-tight:   -0.008em; /* -0.1px at 12px */
+  --fw:         400;
+  --fw-med:     500;      /* the source sets 'wght' 500 on both text styles */
+
+  /* ---- Layout -----------------------------------------------------------
+     Plates are 327x360 on a pitch of 337, so an 11.5 gap, and three fill the
+     1024 canvas almost exactly (3 x 337 = 1011). */
+  --plate-w:   clamp(190px, 31.93vw, 460px);  /* 327 / 1024 */
+  --plate-gap: clamp(6px,   1.12vw,  16px);   /*  11.5 / 1024 */
+  --plate-ratio: 327 / 360;                   /* 0.908, very nearly square */
+  --edge:      clamp(10px, 0.98vw, 16px);     /*  10 / 1024, nav inset */
+  --cap-gap:   clamp(8px,  1.05vw,  15px);    /* caption sits just under the plate */
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --dur-ui:   0.35s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
