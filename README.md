@@ -1,52 +1,45 @@
 # divers.studio, concept two
 
 **This branch is concept two.** Concept one lives on `main` and is what is
-deployed. The two share nothing but the photography and the `bin/` scripts.
+deployed. An earlier concept two, built from the Readymag "Millls" template,
+was scrapped; this replaces it.
 
 | | concept one (`main`) | concept two (this branch) |
 |---|---|---|
-| source | Readymag "Horizon" (6357495) | Readymag "Millls" (6149307) |
+| source | Readymag "Horizon" (6357495) | Readymag "Photo Portfolio" (6017708) |
 | ground | `#131212` dark | `#ffffff` light |
-| type | Inter 400/500, 8-11px canvas | IBM Plex Sans 400 only, 14-56px canvas |
-| motion | horizontal filmstrip | vertical scroll |
-| layout | absolute canvas rebuilt as flex | four-column grid |
+| type | Inter 400/500, 8-11px canvas | Inter Tight 500, 10-12px canvas |
+| motion | drag / wheel filmstrip | vertical scroll drives it sideways |
+| accent | none | `#0008ff` on the current nav item |
 
-Concept two stops just above the source's "An independent practice" section,
-as asked. The header, hero collage, statement, headline, Projects marker and
-three project rows are in; the About block and footer below that point are
-not. The source's tagline pill, a capsule with a down arrow between the
-statement and the headline, was built and then removed.
+The source is a 1024 canvas whose 3700 "height" is scroll length, not content
+height: everything sits in one horizontal band and vertical scrolling moves it
+across. Reproduced with a tall scroll track and a sticky stage, so ordinary
+scrolling (wheel, trackpad, keyboard, scrollbar, Home/End) drives it and no
+input is hijacked. The track's height is measured from the strip's actual
+overflow, so one pixel of scroll is one pixel of travel and the strip lands
+flush at both ends.
 
-Images are grey placeholders for now. Each plate is a `div.ph` holding the
-photo's proportions via an inline `aspect-ratio`, with `data-src` and
-`data-alt` parked on it, so putting the photography back is a straight swap.
-The plates carry a 1px hairline in the page's own white, which is invisible
-except where the hero collage overlaps itself; without it one flat grey turns
-that collage into a single blob. The cut plates are still in `assets/`.
+Notes:
 
-Notes specific to it:
-
-- The source is a 3400px scroll on a 1024 canvas. Its entry page is the one
-  Readymag names "Home" (`rel=next` points at project-one). "Drag" is a
-  modifier, an interaction plugin, not a page.
-- Type is IBM Plex Sans 400 throughout, swapped in for the source's Inter.
-  Still a single weight, so hierarchy comes only from size and tracking, never
-  weight. The display tracking is still the source's `-3px at 56px`
-  (`-0.055em`), which was drawn for Inter; Plex is narrower and carries it a
-  little tighter than it wants. `--ls-display: -0.03em` if that reads cramped.
-- The 56px statement is genuinely tinted: its own style, "H1 New", sets
-  `color: 00000064`, 39% black. The 48px headline sets no color, so it is
-  black. Grey lines in a screencapture of the source are mid-fade, not a
-  two-tone treatment.
-- The hero collage overlaps by design and cannot be expressed as a grid, so
-  that band is a fixed-ratio box with plates placed by percentage taken from
-  the source coordinates.
-- One deliberate deviation: the source runs the statement 566 wide (55%) so
-  its last lines cross a photo. Text sits above the plates there (z 327 vs
-  302-305), but at 39% black over a photo it stops being readable, so the box
-  is 35% here, the widest that still clears the collage.
-
-Original starter notes follow.
+- **Readymag encodes colour as RRGGBB plus opacity 0-100 in hex, not RGBA.**
+  The trailing `64` is 100%, so `00000064` is solid black and `0008FF64` is a
+  solid blue. Read as 8-bit alpha those become 39% washes, which is wrong. The
+  scrapped Millls concept had a grey statement because of exactly that
+  misreading; it should have been black.
+- There is no display size anywhere. The whole page is 10px nav and 12px
+  captions on the 1024 canvas, both uppercase at weight 500. Hierarchy comes
+  from position and from the photographs, not from type.
+- Plates are 327x360 on a 337 pitch, so an 11.5 gap, and three fill the canvas
+  almost exactly. The ratio 0.908 is very nearly square.
+- Only Inter Tight 500 actually loads. 400 is declared and requested but
+  nothing visible uses it, so the browser never fetches it.
+- Images are grey placeholders. Each plate is an empty `div.shot__plate` with
+  the aspect ratio on it; drop an `<img>` inside and it covers automatically.
+- The scroll handler deliberately uses no `requestAnimationFrame` and no
+  ticking latch. A latch unset inside a rAF callback wedges permanently if
+  that callback is ever dropped, and scrolling then silently stops moving the
+  strip. Scroll events already arrive at frame rate.
 
 ## Concept one
 

@@ -1,78 +1,48 @@
 /* ==========================================================================
-   Concept two. Tokens measured off the Readymag "Millls" template
-   (readymag.com/designs/6149307), entry page "Home": a 3400px scroll on a
-   1024px canvas. Light ground, where concept one was dark.
+   Concept two, take two. Tokens measured off the Readymag "Photo Portfolio"
+   template (readymag.com/designs/6017708), entry page "Home page": a 1024
+   canvas whose 3700 height is scroll length, not content height. The content
+   is a horizontal filmstrip that vertical scrolling drives sideways.
 
-   Every value below was read out of that project's widget JSON, not guessed.
-   Original numbers are in the comments.
+   Values are read from that project's widget JSON.
    ========================================================================== */
 
 :root {
   /* ---- Color ------------------------------------------------------------
-     Two colors and one tint. The red (F00001) in the source is a Readymag
-     hotspot pin, editor furniture, not part of the design. */
+     Readymag encodes colour as RRGGBB plus opacity 0-100 in hex, so the
+     trailing 64 is 100%, not an 8-bit alpha. 00000064 is solid black and
+     0008FF64 is a solid blue, which is why the active nav item reads bright
+     rather than washed out. */
   --c-bg:     #ffffff;
-  --c-fg:     #000000;
-  --c-tint:   rgba(0, 0, 0, 0.392);  /* 00000064, the greyed statement */
-  --c-rule:   rgba(0, 0, 0, 0.14);   /* row dividers */
-  --c-plate:  #ebebeb;               /* placeholder fill, standing in for photos */
+  --c-fg:     #000000;   /* 00000064 */
+  --c-accent: #0008ff;   /* 0008FF64, the current page in the nav */
+  --c-plate:  #ebebeb;   /* placeholder fill standing in for photography */
 
   /* ---- Type -------------------------------------------------------------
-     IBM Plex Sans 400 only, in place of the source's Inter. Still a single
-     weight, so hierarchy is carried entirely by size and tracking. */
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --fw: 400;
+     Inter Tight, weights 400 and 500. The whole page is 10px and 12px on the
+     1024 canvas: there is no display size anywhere. Hierarchy comes from
+     position and from the photographs, not from type. */
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Canvas sizes scale with the viewport, as they do in Readymag. Bounded
-     with clamp() so they stop growing on very wide screens. */
-  --fs-statement: clamp(30px, 5.47vw, 72px);  /* 56 @1024, lh 56, ls -3   */
-  --fs-headline:  clamp(26px, 4.69vw, 62px);  /* 48 @1024, lh 60, ls -3   */
-  --fs-section:   clamp(19px, 2.73vw, 34px);  /* 28 @1024                 */
-  --fs-lead:      clamp(15px, 1.76vw, 22px);  /* 18 @1024, lh 23. Unused
-                                                 since the tagline pill came
-                                                 out; kept as the measured
-                                                 step between body and section */
-  --fs-body:      clamp(14px, 1.56vw, 19px);  /* 16 @1024                 */
-  --fs-small:     clamp(12px, 1.37vw, 17px);  /* 14 @1024, lh 16          */
+  --fs-nav:     clamp(10px, 0.98vw, 14px);  /* 10 @1024, lh 11, ls -0.1 */
+  --fs-caption: clamp(11px, 1.17vw, 16px);  /* 12 @1024, lh 12, ls -0.1 */
 
-  --lh-statement: 1.0;    /* 56/56 */
-  --lh-headline:  1.25;   /* 60/48 */
-  --lh-lead:      1.28;   /* 23/18, unused, see --fs-lead */
-  --lh-small:     1.15;   /* 16/14 */
-  --ls-display:   -0.055em; /* -3px at 56px */
+  --lh-nav:     1.1;      /* 11/10 */
+  --lh-caption: 1.0;      /* 12/12 */
+  --ls-tight:   -0.008em; /* -0.1px at 12px */
+  --fw:         400;
+  --fw-med:     500;      /* the source sets 'wght' 500 on both text styles */
 
   /* ---- Layout -----------------------------------------------------------
-     Four columns on the 1024 canvas: x = 20, 270, 522, 774. Column 230,
-     gutter 20, page inset 20, content 984. */
-  --inset:    1.95vw;                        /*  20 / 1024 */
-  --col:      22.46vw;                       /* 230 / 1024 */
-  --gutter:   1.95vw;                        /*  20 / 1024 */
-  --rule-gap: clamp(28px, 4.7vw, 64px);
-
-  --radius-pill: 90px;   /* the source's radius_rect on every pill */
-
-  /* Pill internals, straight from the source. The circle is 70 of the
-     capsule's 80, so it very nearly fills it; sizing it off the label's
-     font-size instead is what made it look small and the spacing loose.
-     Both pills use the same 70, though their labels are 18 and 28. */
-  --dot:      clamp(38px, 6.84vw, 86px);   /*  70 / 1024 */
-  --pill-pad: clamp(3px,  0.59vw,  6px);   /*   6 / 1024, capped so the
-                                               circle keeps filling the
-                                               capsule as the dot clamps */
-  --pill-gap: clamp(7px,  1.27vw, 16px);   /*  13 / 1024 */
-  --pill-end: clamp(12px, 2.15vw, 27px);   /*  22 / 1024 */
-  --hairline: 1px;
+     Plates are 327x360 on a pitch of 337, so an 11.5 gap, and three fill the
+     1024 canvas almost exactly (3 x 337 = 1011). */
+  --plate-w:   clamp(190px, 31.93vw, 460px);  /* 327 / 1024 */
+  --plate-gap: clamp(6px,   1.12vw,  16px);   /*  11.5 / 1024 */
+  --plate-ratio: 327 / 360;                   /* 0.908, very nearly square */
+  --edge:      clamp(10px, 0.98vw, 16px);     /*  10 / 1024, nav inset */
+  --cap-gap:   clamp(8px,  1.05vw,  15px);    /* caption sits just under the plate */
 
   /* ---- Motion ------------------------------------------------------------ */
-  --dur-reveal: 0.9s;
-  --dur-ui:     0.4s;
-  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
-  --stagger:    90ms;
-}
-
-@media (max-width: 760px) {
-  :root {
-    --inset:  20px;
-    --gutter: 14px;
-  }
+  --dur-ui:   0.35s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }

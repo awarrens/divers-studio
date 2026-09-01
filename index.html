@@ -7,108 +7,87 @@
   <meta name="description" content="divers.studio, a production company. Selected work.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=1788280450">
-  <link rel="stylesheet" href="css/styles.css?v=1788280450">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1788281080">
+  <link rel="stylesheet" href="css/styles.css?v=1788281080">
 </head>
 <body>
-  <div class="wrap">
 
-    <header class="masthead">
-      <a class="pill masthead__mark" href="/">divers.studio</a>
-      <nav class="masthead__nav" aria-label="Primary">
-        <a class="pill" href="/about/">About</a>
-        <a class="pill" href="/contact/">Contact</a>
-      </nav>
-    </header>
-
-    <!-- Hero: plates scattered across the grid with the statement laid over them -->
-    <div class="hero">
-      <figure class="hero__plate hero__plate--a" data-reveal>
-        <div class="ph" style="aspect-ratio: 464 / 398" data-src="assets/collage-1.jpg" data-alt="Ridgeline above a deep valley"></div>
-      </figure>
-      <figure class="hero__plate hero__plate--b" data-reveal>
-        <div class="ph" style="aspect-ratio: 460 / 400" data-src="assets/collage-2.jpg" data-alt="Skier carving through powder"></div>
-      </figure>
-      <figure class="hero__plate hero__plate--c" data-reveal>
-        <div class="ph" style="aspect-ratio: 460 / 560" data-src="assets/collage-3.jpg" data-alt="Trail runner on a climb"></div>
-      </figure>
-      <figure class="hero__plate hero__plate--d" data-reveal>
-        <div class="ph" style="aspect-ratio: 464 / 480" data-src="assets/collage-4.jpg" data-alt="Surfer walking up from the beach at dusk"></div>
-      </figure>
-
-      <!-- Kept short on purpose: the statement sits over the collage, and at
-           39% black any line long enough to cross a plate stops being readable. -->
-      <h1 class="hero__statement" data-reveal>
-        Film is the art of being there before it happens.
-      </h1>
+  <div class="chrome">
+    <nav class="chrome__nav" aria-label="Primary">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/work/">Projects</a>
+      <a href="/about/">About</a>
+    </nav>
+    <div class="chrome__social">
+      <a href="https://instagram.com/" rel="noopener">Instagram</a>
+      <a href="mailto:hello@divers.studio">Email</a>
     </div>
-
-    <p class="headline" data-reveal>
-      A small crew shooting where the
-      light is difficult, the access is
-      earned, and the story is already
-      happening without us.
-    </p>
-
-    <div class="marker" data-reveal>
-      <!-- Source puts this circle on the right of the capsule. -->
-      <div class="pill--marker">
-        <span class="pill__label">Projects</span>
-        <button class="pill__dot" type="button" data-scroll-to=".row--a"
-                aria-label="Skip to the first project">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <article class="row row--a" data-reveal>
-      <div class="row__meta">
-        <h2 class="row__title">Open Water <span class="row__year">#2026</span></h2>
-        <p class="row__note">
-          Shot over nine days on a coast that only cooperates at dawn. A single
-          camera, no lights, and a crew small enough to move when the swell did.
-        </p>
-        <a class="row__link" href="/work/open-water/">View Project</a>
-      </div>
-      <figure class="row__plate row__plate--0"><div class="ph" style="aspect-ratio: 464 / 520" data-src="assets/row1-a.jpg" data-alt="Freediver on rocks at dusk"></div></figure>
-      <figure class="row__plate row__plate--1"><div class="ph" style="aspect-ratio: 460 / 440" data-src="assets/row1-b.jpg" data-alt="Runner on a seawall"></div></figure>
-      <figure class="row__plate row__plate--2"><div class="ph" style="aspect-ratio: 464 / 400" data-src="assets/row1-c.jpg" data-alt="Surfer on a dune path"></div></figure>
-    </article>
-
-    <article class="row row--b" data-reveal>
-      <div class="row__meta">
-        <h2 class="row__title">First Light <span class="row__year">#2026</span></h2>
-        <p class="row__note">
-          A commercial cut that had to pass for documentary. Everything handheld,
-          nothing blocked, and the whole thing carried by one long walk uphill.
-        </p>
-        <a class="row__link" href="/work/first-light/">View Project</a>
-      </div>
-      <figure class="row__plate row__plate--0"><div class="ph" style="aspect-ratio: 464 / 520" data-src="assets/row2-a.jpg" data-alt="Fly casting on a mountain river"></div></figure>
-      <figure class="row__plate row__plate--1"><div class="ph" style="aspect-ratio: 460 / 440" data-src="assets/row2-b.jpg" data-alt="Hiker above a valley"></div></figure>
-      <figure class="row__plate row__plate--2"><div class="ph" style="aspect-ratio: 464 / 400" data-src="assets/row2-c.jpg" data-alt="Skier in trees"></div></figure>
-    </article>
-
-    <article class="row row--c" data-reveal>
-      <div class="row__meta">
-        <h2 class="row__title">Cold Open <span class="row__year">#2025</span></h2>
-        <p class="row__note">
-          Two weeks of snow, one week of usable weather. Cut monochrome because
-          the colour was never the point and the grain was doing the work.
-        </p>
-        <a class="row__link" href="/work/cold-open/">View Project</a>
-      </div>
-      <figure class="row__plate row__plate--0"><div class="ph" style="aspect-ratio: 460 / 520" data-src="assets/row3-a.jpg" data-alt="Trail runner kicking up dirt"></div></figure>
-      <figure class="row__plate row__plate--1"><div class="ph" style="aspect-ratio: 464 / 440" data-src="assets/row3-b.jpg" data-alt="Surfer at dusk"></div></figure>
-      <figure class="row__plate row__plate--2"><div class="ph" style="aspect-ratio: 464 / 400" data-src="assets/row3-c.jpg" data-alt="Bottle against a blue sky"></div></figure>
-    </article>
-
-    <!-- Source continues into "An independent practice". Stopping above it. -->
-    <div class="tail"></div>
-
   </div>
 
-  <script src="js/app.js?v=1788280450"></script>
+  <main class="track">
+    <div class="stage">
+      <div class="strip">
+        <a class="shot" href="/work/behind-the-view/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">Behind the View</span>
+            <span class="shot__year">2025</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/cold-open/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">Cold Open</span>
+            <span class="shot__year">2025</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/the-long-run/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">The Long Run</span>
+            <span class="shot__year">2026</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/first-light/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">First Light</span>
+            <span class="shot__year">2026</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/open-water/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">Open Water</span>
+            <span class="shot__year">2026</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/handmade/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">Handmade</span>
+            <span class="shot__year">2024</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/night-shift/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">Night Shift</span>
+            <span class="shot__year">2024</span>
+          </p>
+        </a>
+        <a class="shot" href="/work/crossing-the-stripes/">
+          <div class="shot__plate"></div>
+          <p class="shot__cap">
+            <span class="shot__title">Crossing the Stripes</span>
+            <span class="shot__year">2023</span>
+          </p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/app.js?v=1788281080"></script>
 </body>
 </html>

@@ -1,52 +1,78 @@
-/* Concept two: staggered reveal on scroll. Nothing else needs script. */
+/* ==========================================================================
+   Vertical scroll drives the filmstrip sideways.
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   The track is made exactly as tall as the strip's horizontal overflow, so
+   one pixel of scroll is one pixel of travel and the strip finishes exactly
+   as the sticky stage lets go. Measured rather than guessed at, because the
+   plate width is a clamp() and changes with the viewport.
+   ========================================================================== */
 
-function initReveal() {
-  const items = document.querySelectorAll('[data-reveal]');
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    items.forEach(el => el.classList.add('is-in'));
-    return;
+const mqStacked = window.matchMedia('(max-width: 760px)');
+
+function initFilmstrip() {
+  const track = document.querySelector('.track');
+  const stage = document.querySelector('.stage');
+  const strip = document.querySelector('.strip');
+  if (!track || !stage || !strip) return;
+
+  let overflow = 0;
+  let start = 0;
+
+  function measure() {
+    if (mqStacked.matches) {
+      track.style.height = '';
+      strip.style.transform = '';
+      overflow = 0;
+      return;
+    }
+    // How far the strip has to travel to bring its right edge into view.
+    overflow = Math.max(0, strip.scrollWidth - stage.clientWidth);
+    start = track.offsetTop;
+    track.style.height = `${stage.clientHeight + overflow}px`;
+    render();
   }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-in');
-      io.unobserve(entry.target);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
-  // Stagger restarts per group, so a row's plates cascade but the page does
-  // not accumulate a delay that leaves the footer waiting seconds to appear.
-  let i = 0, lastTop = -Infinity;
-  items.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top - lastTop > 40) i = 0; else i += 1;
-    lastTop = top;
-    el.style.setProperty('--i', i);
-    io.observe(el);
-  });
+  // No rAF and no ticking latch here on purpose. A latch that is unset inside
+  // a rAF callback wedges permanently if that callback is ever dropped, and
+  // then scrolling silently stops moving the strip. Scroll events are already
+  // delivered at frame rate, and this only reads a cached number and writes
+  // one transform, so it can just run.
+  function render() {
+    if (overflow <= 0) return;
+    const progress = Math.min(1, Math.max(0, (window.scrollY - start) / overflow));
+    strip.style.transform = `translate3d(${-progress * overflow}px, 0, 0)`;
+  }
+
+  window.addEventListener('scroll', render, { passive: true });
+  window.addEventListener('resize', measure);
+  mqStacked.addEventListener('change', measure);
+
+  // Fonts and images both change the strip's width, so re-measure once they
+  // have settled rather than trusting the first layout.
+  measure();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  window.addEventListener('load', measure);
 }
 
-/* The circular arrows are real controls, so give them something to do:
-   move to the section they point at. Focus follows the scroll, otherwise
-   keyboard users are left where they started. */
-function initScrollButtons() {
-  document.querySelectorAll('[data-scroll-to]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.querySelector(btn.dataset.scrollTo);
-      if (!target) return;
-      target.scrollIntoView({
-        behavior: reduceMotion ? 'auto' : 'smooth',
-        block: 'start',
-      });
-      target.setAttribute('tabindex', '-1');
-      target.focus({ preventScroll: true });
+/* Keep a focused plate on screen. Without this, tabbing through the strip
+   moves focus to something the sticky stage has clipped out of view. */
+function initFocusFollow() {
+  document.querySelectorAll('.shot').forEach(shot => {
+    shot.addEventListener('focus', () => {
+      if (mqStacked.matches) return;
+      const track = document.querySelector('.track');
+      const strip = document.querySelector('.strip');
+      const stage = document.querySelector('.stage');
+      const overflow = Math.max(0, strip.scrollWidth - stage.clientWidth);
+      if (overflow <= 0) return;
+      const target = shot.offsetLeft - stage.clientWidth / 2 + shot.offsetWidth / 2;
+      const progress = Math.min(1, Math.max(0, target / overflow));
+      window.scrollTo({ top: track.offsetTop + progress * overflow, behavior: 'auto' });
     });
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initReveal();
-  initScrollButtons();
+  initFilmstrip();
+  initFocusFollow();
 });
