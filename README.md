@@ -16,6 +16,13 @@ as asked. The header, hero collage, statement, tagline, headline, Projects
 marker and three project rows are in; the About block and footer below that
 point are not.
 
+Images are grey placeholders for now. Each plate is a `div.ph` holding the
+photo's proportions via an inline `aspect-ratio`, with `data-src` and
+`data-alt` parked on it, so putting the photography back is a straight swap.
+The plates carry a 1px hairline in the page's own white, which is invisible
+except where the hero collage overlaps itself; without it one flat grey turns
+that collage into a single blob. The cut plates are still in `assets/`.
+
 Notes specific to it:
 
 - The source is a 3400px scroll on a 1024 canvas. Its entry page is the one

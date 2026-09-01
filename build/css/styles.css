@@ -22,6 +22,18 @@ img { display: block; max-width: 100%; }
 /* figure ships with margin: 1em 40px by default, which quietly shrinks every
    plate inside its grid cell. Very visible once the columns get narrow. */
 figure { margin: 0; }
+
+/* Grey stand-in for a photo. Holds the plate's proportions via an inline
+   aspect-ratio, so the collage geometry is identical with or without images.
+   Each one keeps data-src and data-alt, so restoring the photos is a swap. */
+.ph {
+  width: 100%;
+  background: var(--c-plate);
+  /* One flat grey turns the overlapping hero plates into a single blob. A
+     hairline in the page's own white re-separates them, and is invisible
+     everywhere the plates do not overlap. */
+  box-shadow: 0 0 0 1px var(--c-bg);
+}
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--c-fg); outline-offset: 3px; }
 
@@ -103,7 +115,8 @@ a.pill--arrow:hover, a.pill--arrow:focus-visible { background: none; color: inhe
   margin-top: clamp(8px, 1.5vw, 20px);
 }
 .hero__plate { position: absolute; }
-.hero__plate img { width: 100%; height: auto; }
+.hero__plate img,
+.hero__plate .ph { width: 100%; height: auto; }
 
 /* left / top / width, all as % of the band. Source px in comments. */
 .hero__plate--a { left: 50.98%; top:  0%;  width: 22.66%; }  /* 522,  80  232 */
@@ -184,11 +197,13 @@ a.pill--arrow:hover, a.pill--arrow:focus-visible { background: none; color: inhe
 .row__link:hover, .row__link:focus-visible { opacity: 0.5; }
 
 .row__plate { grid-row: 1; align-self: start; overflow: hidden; }
-.row__plate img {
+.row__plate img,
+.row__plate .ph {
   width: 100%; height: auto;
   transition: transform 0.7s var(--ease-out);
 }
-.row__plate:hover img { transform: scale(1.03); }
+.row__plate:hover img,
+.row__plate:hover .ph { transform: scale(1.03); }
 
 /* Staggered tops, straight from the source's y offsets: 0, +40, +60. */
 .row__plate--0 { margin-top: 0; }
@@ -261,6 +276,7 @@ a.pill--arrow:hover, a.pill--arrow:focus-visible { background: none; color: inhe
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
-  .row__plate:hover img { transform: none; }
+  .row__plate:hover img,
+  .row__plate:hover .ph { transform: none; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

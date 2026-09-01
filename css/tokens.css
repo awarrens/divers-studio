@@ -15,6 +15,7 @@
   --c-fg:     #000000;
   --c-tint:   rgba(0, 0, 0, 0.392);  /* 00000064, the greyed statement */
   --c-rule:   rgba(0, 0, 0, 0.14);   /* row dividers */
+  --c-plate:  #ebebeb;               /* placeholder fill, standing in for photos */
 
   /* ---- Type -------------------------------------------------------------
      Inter 400 only. No second weight is loaded by the source at all, so
