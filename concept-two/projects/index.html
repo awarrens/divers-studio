@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>divers.studio, projects</title>
+  <meta name="description" content="divers.studio, selected projects across commercial, documentary and branded film.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../css/tokens.css?v=1788465849">
+  <link rel="stylesheet" href="../css/styles.css?v=1788465849">
+</head>
+<body>
+
+  <div class="chrome">
+    <nav class="chrome__nav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="./" aria-current="page">Projects</a>
+      <a href="../about/">About</a>
+    </nav>
+    <a class="chrome__mark" href="../">divers.studio</a>
+    <div class="chrome__social">
+      <a href="https://instagram.com/" rel="noopener">Instagram</a>
+      <a href="mailto:hello@divers.studio">Email</a>
+    </div>
+  </div>
+
+  <main class="index">
+    <!-- Buttons rather than links: these filter in place, they do not navigate.
+         aria-pressed carries the state so it is not colour alone. -->
+    <div class="chips" role="group" aria-label="Filter projects by type">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-filter="personal" aria-pressed="false">Personal</button>
+      <button class="chip" type="button" data-filter="editorial" aria-pressed="false">Editorial</button>
+      <button class="chip" type="button" data-filter="product" aria-pressed="false">Product</button>
+    </div>
+
+    <p class="index__count" role="status" aria-live="polite">9 projects</p>
+
+    <!-- 3 across: on the source's 1024 canvas a 10 inset with 11.5 gaps gives
+         327 wide columns, exactly the home page's plate width, so the same
+         cuts are reused at their native size. -->
+    <ul class="grid">
+      <li class="grid__item" data-cat="personal">
+        <a class="grid__link" href="../work/first-light/">
+          <span class="grid__plate">
+            <img src="../assets/shot-1.jpg" alt="First Light" width="981" height="1080">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">First Light</span>
+            <span class="grid__meta">personal &middot; 2026</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="editorial">
+        <a class="grid__link" href="../work/cold-open/">
+          <span class="grid__plate">
+            <img src="../assets/shot-4.jpg" alt="Cold Open" width="981" height="1080" loading="lazy">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Cold Open</span>
+            <span class="grid__meta">editorial &middot; 2025</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="product">
+        <a class="grid__link" href="../work/handmade/">
+          <span class="grid__plate">
+            <img src="../assets/shot-5.jpg" alt="Handmade" width="981" height="1080" loading="lazy">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Handmade</span>
+            <span class="grid__meta">product &middot; 2025</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="personal">
+        <a class="grid__link" href="../work/shore-break/">
+          <span class="grid__plate">
+            <img src="../assets/shot-9.jpg" alt="Shore Break" width="981" height="1080" loading="lazy">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Shore Break</span>
+            <span class="grid__meta">personal &middot; 2023</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="editorial">
+        <a class="grid__link" href="../work/night-shift/">
+          <span class="grid__plate">
+            <img src="../assets/shot-6.jpg" alt="Night Shift" width="981" height="1080" loading="lazy">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Night Shift</span>
+            <span class="grid__meta">editorial &middot; 2024</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="product">
+        <a class="grid__link" href="../work/slack-water/">
+          <span class="grid__plate">
+            <img src="../assets/shot-8.jpg" alt="Slack Water" width="981" height="1080" loading="lazy">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Slack Water</span>
+            <span class="grid__meta">product &middot; 2023</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="personal">
+        <a class="grid__link" href="../work/dead-reckoning/">
+          <span class="grid__plate">
+            <img src="../assets/shot-7.jpg" alt="Dead Reckoning" width="981" height="1080" loading="lazy">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Dead Reckoning</span>
+            <span class="grid__meta">personal &middot; 2024</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="editorial">
+        <a class="grid__link" href="../work/the-long-run/">
+          <span class="grid__plate">
+            <img src="../assets/shot-3.jpg" alt="The Long Run" width="981" height="1080">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">The Long Run</span>
+            <span class="grid__meta">editorial &middot; 2026</span>
+          </span>
+        </a>
+      </li>
+      <li class="grid__item" data-cat="product">
+        <a class="grid__link" href="../work/open-water/">
+          <span class="grid__plate">
+            <img src="../assets/shot-2.jpg" alt="Open Water" width="981" height="1080">
+          </span>
+          <span class="grid__cap">
+            <span class="grid__title">Open Water</span>
+            <span class="grid__meta">product &middot; 2026</span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </main>
+
+  <script src="../js/projects.js?v=1788465849"></script>
+</body>
+</html>
