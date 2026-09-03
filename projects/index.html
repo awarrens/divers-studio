@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/tokens.css?v=1788465849">
-  <link rel="stylesheet" href="../css/styles.css?v=1788465849">
+  <link rel="stylesheet" href="../css/tokens.css?v=1788466582">
+  <link rel="stylesheet" href="../css/styles.css?v=1788466582">
 </head>
-<body>
+<body class="has-static-footer">
 
   <div class="chrome">
     <nav class="chrome__nav" aria-label="Primary">
@@ -20,10 +20,6 @@
       <a href="../about/">About</a>
     </nav>
     <a class="chrome__mark" href="../">divers.studio</a>
-    <div class="chrome__social">
-      <a href="https://instagram.com/" rel="noopener">Instagram</a>
-      <a href="mailto:hello@divers.studio">Email</a>
-    </div>
   </div>
 
   <main class="index">
@@ -36,7 +32,9 @@
       <button class="chip" type="button" data-filter="product" aria-pressed="false">Product</button>
     </div>
 
-    <p class="index__count" role="status" aria-live="polite">9 projects</p>
+    <!-- Hidden visually but kept as a live region: without it, filtering is
+         silent for anyone using a screen reader. -->
+    <p class="index__count u-visually-hidden" role="status" aria-live="polite">9 projects</p>
 
     <!-- 3 across: on the source's 1024 canvas a 10 inset with 11.5 gaps gives
          327 wide columns, exactly the home page's plate width, so the same
@@ -144,6 +142,14 @@
     </ul>
   </main>
 
-  <script src="../js/projects.js?v=1788465849"></script>
+  <!-- Not sticky on this page: the grid is long enough that a fixed row just
+       sat on top of the last row's captions. Below the fold as normal flow. -->
+  <footer class="footer">
+    <a href="https://instagram.com/" rel="noopener">Instagram</a>
+    <a href="mailto:hello@divers.studio">Email</a>
+  </footer>
+
+  <script src="../js/chrome.js?v=1788466582"></script>
+  <script src="../js/projects.js?v=1788466582"></script>
 </body>
 </html>

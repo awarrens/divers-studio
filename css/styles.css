@@ -47,6 +47,56 @@ a { color: inherit; text-decoration: none; }
 }
 .chrome a { pointer-events: auto; }
 
+/* The chrome is fixed with no backdrop, so scrolled content used to pass
+   straight through the nav and the wordmark. These two bars sit inside the
+   fixed layer at z-index -1, which puts them above the page but behind the
+   chrome's own text, and they occlude whatever scrolls underneath.
+
+   Heights come from the chrome's own tokens: the nav is three lines of
+   --fs-nav inside the --edge inset, the social row is one. Faded in on scroll
+   rather than left on, since the page is white and at rest there is nothing
+   to hide. */
+.chrome::before,
+.chrome::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  z-index: -1;
+  background: var(--c-bg);
+  opacity: 0;
+  transition: opacity var(--dur-ui) var(--ease-out);
+}
+.chrome::before {
+  top: 0;
+  height: calc(var(--edge) * 2 + var(--fs-nav) * 3.3);
+}
+.chrome::after {
+  bottom: 0;
+  height: calc(var(--edge) * 2 + var(--fs-nav) * 1.1);
+}
+body.is-scrolled .chrome::before,
+body.is-scrolled .chrome::after { opacity: 1; }
+
+/* Pages that carry their contact links in normal flow have no fixed bottom
+   row, so the bottom bar has nothing to hide behind. */
+body.has-static-footer .chrome::after { display: none; }
+
+/* --- Static footer --------------------------------------------------------
+   Same register as the fixed social row, but in the flow, so it cannot land
+   on top of content. */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: calc(var(--fs-nav) * 2.4) var(--edge) calc(var(--edge) + var(--fs-nav));
+  font-size: var(--fs-nav);
+  line-height: var(--lh-nav);
+  font-weight: var(--fw-med);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
+}
+.footer a { transition: color var(--dur-ui) var(--ease-out); }
+.footer a:hover { color: var(--c-accent); }
+
 .chrome__nav {
   position: absolute;
   top: var(--edge);
@@ -151,7 +201,7 @@ a.shot:focus-visible .shot__cap { color: var(--c-accent); }
      the chrome's own tokens rather than picked by eye: the nav is three lines
      of --fs-nav at the --edge inset, and the social row is one. */
   padding-top: calc(var(--edge) + var(--fs-nav) * 5);
-  padding-bottom: calc(var(--edge) + var(--fs-nav) * 3);
+  padding-bottom: 0;   /* the static footer carries the bottom spacing */
   padding-inline: var(--edge);
 }
 
@@ -187,20 +237,16 @@ a.shot:focus-visible .shot__cap { color: var(--c-accent); }
   color: var(--c-bg);
 }
 
-.index__count {
-  margin: clamp(12px, 1.4vw, 20px) 0 clamp(18px, 2.1vw, 30px);
-  font-size: var(--fs-nav);
-  font-weight: var(--fw-med);
-  text-transform: uppercase;
-  color: var(--c-fg);
-}
+/* .index__count is visually hidden; it exists only to announce filter
+   results. The chips now carry the gap down to the grid. */
+.chips { margin-bottom: clamp(20px, 2.4vw, 34px); }
 
 .grid {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--grid-cols, 4), 1fr);
   gap: var(--plate-gap);
   row-gap: calc(var(--plate-gap) * 2.6);
 }
@@ -220,7 +266,7 @@ a.shot:focus-visible .shot__cap { color: var(--c-accent); }
 .grid__cap {
   display: block;
   margin-top: calc(18.7px * 0.8);
-  font-size: var(--fs-caption);
+  font-size: var(--fs-nav);
   line-height: var(--lh-caption);
   font-weight: var(--fw-med);
   text-transform: uppercase;
@@ -285,6 +331,12 @@ a.shot:focus-visible .shot__cap { color: var(--c-accent); }
 .about__block a { text-decoration: none; transition: color var(--dur-ui) var(--ease-out); }
 .about__block a:hover { color: var(--c-accent); }
 
+/* Grid density. One token, set per breakpoint: 4 across by default, 5 once
+   the viewport can carry it, fewer as it narrows. At 1440 four across gives
+   341x375 plates against the 460x506 of three. */
+@media (min-width: 1600px) { :root { --grid-cols: 5; } }
+@media (max-width: 1099px) { :root { --grid-cols: 3; } }
+
 /* --- Mobile ---------------------------------------------------------------
    Sideways scrolling driven by vertical scrolling is a desktop conceit. On a
    phone it becomes an ordinary vertical list, and the track collapses. */
@@ -334,11 +386,8 @@ a.shot:focus-visible .shot__cap { color: var(--c-accent); }
   .about__bio { max-width: none; }
 
   /* Two across on a phone; three 327 columns would be unreadable. */
-  .index {
-    padding-top: calc(var(--edge) + var(--fs-nav) * 5.5);
-    padding-bottom: calc(var(--edge) + var(--fs-nav) * 3.5);
-  }
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .index { padding-top: calc(var(--edge) + var(--fs-nav) * 5.5); }
+  :root { --grid-cols: 2; }
 }
 
 /* --- Reduced motion -------------------------------------------------------
